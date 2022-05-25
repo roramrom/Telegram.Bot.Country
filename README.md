@@ -1,2 +1,1 @@
-# countrybot
-Simple Telegram bot for sending requests and receiving images
+A simple Telegram bot (Python) for sending requests and receiving images.
