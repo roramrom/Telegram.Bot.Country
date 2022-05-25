@@ -1,0 +1,109 @@
+import logging
+ 
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.dispatcher.filters import Text
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+ 
+api = ''
+logging.basicConfig(level=logging.INFO)
+bot = Bot(token=api)
+dp = Dispatcher(bot, storage=MemoryStorage())
+ 
+start_menu = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Animals')],
+                                           [KeyboardButton(text='Fruits')],
+                                           [KeyboardButton(text='Countries')]],
+                                 resize_keyboard=True)
+ 
+animal_menu = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Lions')],
+                                            [KeyboardButton(text='Dogs')],
+                                            [KeyboardButton(text='Monkeys')],
+                                            [KeyboardButton(text='Go back')]],
+                                  resize_keyboard=True)
+ 
+fruit_menu = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Apple')],
+                                           [KeyboardButton(text='Banana')],
+                                           [KeyboardButton(text='Mango')],
+                                           [KeyboardButton(text='Go back')]],
+                                 resize_keyboard=True)
+ 
+country_menu = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='England')],
+                                             [KeyboardButton(text='Japan')],
+                                             [KeyboardButton(text='China')],
+                                             [KeyboardButton(text='Go back')]],
+                                   resize_keyboard=True)
+ 
+ 
+@dp.message_handler(commands=['start'])
+async def func_1(message: types.Message):
+    print(message.from_user)
+    await message.answer('Hi! I can help you', reply_markup=start_menu)
+ 
+ 
+@dp.message_handler(Text(equals=['Animals']))
+async def starter(message: types.Message):
+    await message.answer('Here you go', reply_markup=animal_menu)
+ 
+ 
+@dp.message_handler(Text(equals=['Fruits']))
+async def starter(message: types.Message):
+    await message.answer('Here you go', reply_markup=fruit_menu)
+ 
+ 
+@dp.message_handler(Text(equals=['Countries']))
+async def starter(message: types.Message):
+    await message.answer('Here you go', reply_markup=country_menu) \
+ 
+@ dp.message_handler(Text(equals=['Go back']))
+async def starter(message: types.Message):
+    await message.answer('Here you go', reply_markup=start_menu)
+ 
+ 
+@dp.message_handler(Text(equals=['Dogs']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's a dog", photo='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.uBHvD5WV_zVsP6YfqvRyjQHaGN%26pid%3DApi&f=1')
+ 
+@dp.message_handler(Text(equals=['Lions']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's a lion", photo='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.Mkxr9GWX8EAQkBUEIFd_GQHaLH%26pid%3DApi&f=1')
+ 
+@dp.message_handler(Text(equals=['Monkeys']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's a monkey", photo='https://chrishillphotoblog.com/wp-content/uploads/2017/01/Proboscis-monkey-male.jpg')
+ 
+@dp.message_handler(Text(equals=['Apple']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's an apple", photo='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.eL8a0vtQ8BgrLGXXczniQgHaI0%26pid%3DApi&f=1')
+ 
+@dp.message_handler(Text(equals=['Banana']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's a banana", photo='https://www.wallpaperbetter.com/wallpaper/828/29/167/banana-photography-high-resolution-jpeg-1080P-wallpaper-middle-size.jpg')
+ 
+@dp.message_handler(Text(equals=['Mango']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's a mango", photo='https://fthmb.tqn.com/UrHhhxtlDcOAT9uTsQWoroujiw4=/4268x3312/filters:fill(87E3EF,1)/mango-168260845-596411e23df78cdc68c06184.jpg')
+ 
+@dp.message_handler(Text(equals=['England']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's England", photo='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.e_bbO_MwobphE7AiIzUzyQHaEA%26pid%3DApi&f=1')
+ 
+@dp.message_handler(Text(equals=['Japan']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's Japan", photo='https://wallpapercave.com/wp/wp2044380.jpg')
+ 
+@dp.message_handler(Text(equals=['China']))
+async def starter(message: types.Message):
+    chat_id = message.chat.id
+    await bot.send_photo(chat_id=chat_id, caption="Yo, that's China", photo='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Rsoo06pDhF5WEXB1EiGoVgHaE8%26pid%3DApi&f=1')
+ 
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
+    
